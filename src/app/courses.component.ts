@@ -8,6 +8,7 @@
 // and then you had to apply it on the typescript class
 
 import { Component } from '@angular/core'; 
+import { CoursesService } from './courses.service';
 
 // decorator function starts with '@...'
 @Component({
@@ -29,12 +30,28 @@ import { Component } from '@angular/core';
 })
 export class CoursesComponent {
   title ="List of courses";
+  courses
 
   getTitle() {
     return this.title;
   }
 
-  courses = ["course1", "course2", "course3"]
+  // logic for calling an HTTP service
+  // this is bad because it tightly couples the CoursesServices. It will have to be updated every time and can't be unit tested
+  // constructor() {
+    //   let service = new CoursesService();
+    //   this.courses = service.getCourses()
+    // }
+    
+    // it's best to make the CoursesService a dependency of the constructor
+    // when you use the new operator in a class, you have tightly coupled your class to the implementation
+    // but when you add a dependency, you have decoupled them.
+  constructor(service: CoursesService) {
+    this.courses = service.getCourses()
+    // dependency injection - injecting, or providing, the depencies of a class to it's constructor
+    // this must be done in app.module.ts, win the providers array.
+    // if you see ERROR error: No provider for <service>! this step has probably been skipped.
+  }
 }
 
 // instead of doing that, you can use the angular CLI
