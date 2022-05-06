@@ -7,3 +7,8 @@ export class CoursesService {
       return ["course1", "course2", "course3"]
   }
 }
+
+// These can also be generated using CLI
+// 'ng g s <name>'
+// it will create two files, <name>.service.ts and a spec.ts file for unit testing
+// THIS DOES NOT PROVIDE THE SERVICE. It must be added to app.module.ts
